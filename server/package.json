@@ -8,5 +8,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs-mate": "^4.0.0",
+    "express": "^4.19.2",
+    "node": "^21.7.1",
+    "nodemon": "^3.1.0",
+    "path": "^0.12.7",
+    "redis": "^4.6.13"
+  }
 }
