@@ -1,0 +1,7 @@
+<script src="/scripts/navbar.js"></script>
+<nav class="navbar navbar-expand-lg bg-transparent sticky-top p-2">
+	<form method="POST" action="http://localhost:3000/api/weather" enctype="application/x-www-form-urlencoded" class="form-group container-fluid d-flex justify-content-end" id="cities-form">
+		<input type="text" class="form-control w-auto bg-opacity-10 mr-2" placeholder="Search cities" list="cities-list" id="selected-city" name="selected-city">
+		<datalist id="cities-list"></datalist>
+	</form>
+</nav>

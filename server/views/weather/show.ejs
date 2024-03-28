@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') %>
+<div class="d-flex p-2 align-items-center justify-content-center">
+	<% for( let key in presentWeather ) { %>
+		<% //if (presentWeather[key].unit !== undefined) { %>
+			<%- include('card', { value: presentWeather[key].value, unit: presentWeather[key].unit }) %>
+		<% //} %>
+	<% } %>
+</div>
