@@ -1,0 +1,12 @@
+::placeholder {
+	color: white !important;
+}
+
+.form-control:focus {
+	box-shadow: none !important;
+}
+
+#selected-city {
+	color: white;
+	background-color: #2f2f2f6e;
+}

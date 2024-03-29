@@ -1,8 +1,34 @@
 <% layout('layouts/boilerplate') %>
-<div class="d-flex p-2 align-items-center justify-content-center">
-	<% for( let key in presentWeather ) { %>
-		<% //if (presentWeather[key].unit !== undefined) { %>
-			<%- include('card', { value: presentWeather[key].value, unit: presentWeather[key].unit }) %>
-		<% //} %>
-	<% } %>
-</div>
+<body class="d-flex flex-column vh-100">
+	<link rel="stylesheet" href="/styles/weather.css">
+	<video autoplay muted loop id="background-video">
+		<source src="<%= presentWeather.backgroundVideo %>" type="video/mp4">
+	</video>
+	<%- include('../partials/navbar') %>
+	<main class="container mt-5">
+		<%- include('../partials/flash') %>
+		<div class="fs-4 text-center">
+			<%= presentWeather.city.name %>
+		</div>
+		<div class="fs-1 text-center">
+			<%= presentWeather.measurableParameters.temperature.value %> <%= presentWeather.measurableParameters.temperature.unit %>
+		</div>
+		<div class="fs-5 text-center">
+			<%= presentWeather.weatherCode %>
+		</div>
+		<div class="d-flex p-2 align-items-center justify-content-center">
+			<% for( let key in presentWeather.measurableParameters ) { %>
+				<%- include('card', { value: presentWeather.measurableParameters[key].value, unit:
+					presentWeather.measurableParameters[key].unit }) %>
+			<% } %>
+		</div>
+	</main>
+	<%- include('../partials/footer') %>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+		crossorigin="anonymous"></script>
+</body>
