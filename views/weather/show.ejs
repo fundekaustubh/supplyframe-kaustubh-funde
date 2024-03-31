@@ -37,10 +37,10 @@
 											<%= presentWeather.weatherDescriptions.futureWeatherDescription %> conditions expected later on.
 										<% } %>
 									</p>
-									<section class="row">
-										<section class="d-flex justify-content-around mt-3 col-lg-12">
+									<section class="container">
+										<section class="row">
 										<% presentWeather.hourlyForecastedParameters.slice(0, 12).forEach((hour, index) => { %>
-											<div class="hourly-forecast-card col-lg-1 p-1">
+											<div class="hourly-forecast-card col-lg-1 col-md-2 col-sm-3 col-xs-6 p-1">
 												<% if (index === 0) { %>
 													<div class="w-100 d-flex justify-content-center">Now</div>
 												<% } else { %>

@@ -105,7 +105,8 @@ const getPresentWeatherForCoordinates = async (req, res) => {
 			}
 		});
 		dailyForecastedParameters[0].day = 'Today';
-		const hourlyForecastedParameters = _presentWeather.hourly.time.slice(0, 24).map((hour, index) => {
+		const hourlyForecastedParameters = _presentWeather.hourly.time.map((hour, index) => {
+			if (hour < _presentWeather.current.time) return undefined;
 			return {
 				hour: new Date(hour).toLocaleTimeString('en-US', { hour: 'numeric', hour12: true }),
 				temperature: {
@@ -113,9 +114,9 @@ const getPresentWeatherForCoordinates = async (req, res) => {
 					unit: _presentWeather.hourly_units.temperature_2m
 				},
 				weatherCode: weatherCodes[_presentWeather.hourly.weather_code[index]],
-				dayOrNight: _presentWeather.daily.sunrise[index] >= hour && hour <= _presentWeather.daily.sunset[index] ? 'Night' : 'Day'
+				dayOrNight: new Date(hour) >= new Date(_presentWeather.daily.sunrise[0]) && new Date(hour) <= new Date(_presentWeather.daily.sunset[0]) ? 'Day' : 'Night'
 			}
-		});
+		}).filter(hour => hour !== undefined).slice(0, 24);
 		const presentWeather = {
 			city: {
 				name: city,

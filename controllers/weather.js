@@ -20,7 +20,6 @@ const getHomePage = async (req, res) => {
 		}
 	}
 	catch (err) {
-		console.log(err);
 		return res.render('weather/error', { error: err.message });
 	}
 }

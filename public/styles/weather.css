@@ -20,11 +20,11 @@ main {
 }
 
 .h-1x {
-	height: 200px;
+	min-height: 200px;
 }
 
 .h-2x {
-	height: 400px;
+	min-height: 400px;
 }
 
 .weather-card {

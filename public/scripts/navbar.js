@@ -11,7 +11,6 @@
 		citiesOptions.forEach(cityOption => citiesList.appendChild(cityOption));
 		
 		document.addEventListener("DOMContentLoaded", (e) => {
-			console.log("dom content loaded");
 			$('#cities-search').autocomplete();
 		}, false);
 	}
