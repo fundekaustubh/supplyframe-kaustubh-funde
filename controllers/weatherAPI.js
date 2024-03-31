@@ -80,7 +80,6 @@ const getPresentWeatherForCoordinates = async (req, res) => {
 			const averageTemperature = (_presentWeather.daily.apparent_temperature_min[index] + _presentWeather.daily.apparent_temperature_max[index]) / 2;
 			const minTemperature = min(_presentWeather.daily.apparent_temperature_min[index], _presentWeather.daily.temperature_2m_min[index]);
 			const maxTemperature = max(_presentWeather.daily.apparent_temperature_max[index], _presentWeather.daily.temperature_2m_max[index]);
-			console.log("min: ", minTemperature, "max: ", maxTemperature, "average: ", averageTemperature, "percentage: ", ((averageTemperature - minTemperature) / (maxTemperature - minTemperature)) * 100);
 			return {
 				day: new Date(day).toLocaleTimeString('en-US', { weekday: 'long' }).slice(0, 3),
 				temperature: {
@@ -177,7 +176,6 @@ const getPresentWeatherForCoordinates = async (req, res) => {
 				}
 			}
 		};
-		console.log(presentWeather);
 		if (res === undefined) return presentWeather;
 		return res.json(presentWeather);
 	}

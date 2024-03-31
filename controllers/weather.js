@@ -1,9 +1,7 @@
 const axios = require('axios');
 const { getPresentWeatherForCoordinates, getPresentWeatherForCity } = require('./weatherAPI');
 const getHomePage = async (req, res) => {
-	// const presentWeather = await getPresentWeatherForCoordinates(req);
 	const { lat = undefined, lng = undefined } = req.query;
-	console.log("lat and lng", lat, lng);
 	try {
 		if (lat === undefined || lng === undefined) {
 			const presentWeather = await getPresentWeatherForCity({
