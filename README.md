@@ -25,4 +25,8 @@ Once done storing the .env file, start the server. This can be done by executing
 
 `http://localhost:3000`
 
+## For running the jest tests, go to the terminal and execute the following command:
+
+`jest`
+
 Now, you can start viewing the weather statistics across the world. Enjoy! :)
