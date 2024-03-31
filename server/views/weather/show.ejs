@@ -17,9 +17,9 @@
 			<%= presentWeather.weatherCode %>
 		</div>
 		<div class="h6 mt-0 text-center mb-3 font-weight-bold">
-			H: <%= presentWeather.forecastedParameters[0].temperature.max.value %>
+			H: <%= presentWeather.dailyForecastedParameters[0].temperature.max.value %>°
 				&nbsp;
-			L: <%= presentWeather.forecastedParameters[0].temperature.min.value %>
+			L: <%= presentWeather.dailyForecastedParameters[0].temperature.min.value %>°
 		</div>
 		<section class="d-flex p-2 align-items-center justify-content-center">
 			<div class="container-fluid">
@@ -28,7 +28,62 @@
 						<div class="row">
 							<div id="conditions" class="col-lg-12 bg-transparent h-1x p-2">
 								<div class="weather-card rounded border-white p-2">
-									<header class="weather-card-header">Here's the header</header>
+									<p class="hourly-forecast-description h6 mt-1">
+										<% if (presentWeather.weatherDescriptions.currentWeatherDescription.toLowerCase() ===
+												presentWeather.weatherDescriptions.futureWeatherDescription.toLowerCase()) { %>
+											<%= presentWeather.weatherDescriptions.currentWeatherDescription %> conditions right now, expected to stay that way for a while.
+										<% } else { %>
+											<%= presentWeather.weatherDescriptions.currentWeatherDescription %> conditions right now, with 
+											<%= presentWeather.weatherDescriptions.futureWeatherDescription %> conditions expected later on.
+										<% } %>
+									</p>
+									<section class="row">
+										<section class="d-flex justify-content-around mt-3 col-lg-12">
+										<% presentWeather.hourlyForecastedParameters.slice(0, 12).forEach((hour, index) => { %>
+											<div class="hourly-forecast-card col-lg-1 p-1">
+												<% if (index === 0) { %>
+													<div class="w-100 d-flex justify-content-center">Now</div>
+												<% } else { %>
+													<div class="w-100 d-flex justify-content-center"><%= hour.hour %></div>
+												<% } %>
+												<div class="w-100 h4 d-flex justify-content-center my-2">
+													<% if(hour.dayOrNight === "Night") { %>
+														<i class="bi bi-moon-fill"></i>
+													<% } else if (hour.weatherCode === "Sunny") { %>
+														<i class="bi bi-brightness-high-fill"></i>
+													<% } else if (hour.weatherCode === "Partly Cloudy") { %>
+														<i class="bi bi-cloud-sun-fill"></i>
+													<% } else if (hour.weatherCode === "Mostly Cloudy") { %>
+														<i class="bi bi-cloud-fill"></i>
+													<% } else if (hour.weatherCode === "Overcast") { %>
+														<i class="bi bi-clouds-fill"></i>
+													<% } else if (hour.weatherCode === "Fog") { %>
+														<i class="bi bi-cloud-haze2-fill"></i>
+													<% } else if (hour.weatherCode === "Rime") { %>
+														<i class="bi bi-snow"></i>
+													<% } else if (hour.weatherCode === "Drizzle") { %>
+														<i class="bi bi-cloud-drizzle-fill"></i>
+													<% } else if (hour.weatherCode === "Rain") { %>
+														<i class="bi bi-cloud-rain-heavy-fill"></i>
+													<% } else if (hour.weatherCode === "Snow") { %>
+														<i class="bi bi-snow"></i>
+													<% } else if (hour.weatherCode === "Light Snow") { %>
+														<i class="bi bi-snow"></i>
+													<% } else if (hour.weatherCode === "Moderate Snow") { %>
+														<i class="bi bi-snow"></i>
+													<% } else if (hour.weatherCode === "Heavy Snow") { %>
+														<i class="bi bi-snow"></i>
+													<% } else if (hour.weatherCode === "Thunderstorm") { %>
+														<i class="bi bi-cloud-lightning-rain-fill"></i>
+													<% } %>
+												</div>
+												<div class="w-100 d-flex justify-content-center">
+													<%= hour.temperature.value %>°
+												</div>
+											</div>
+										<% }) %>
+										</section>
+									</section>
 								</div>
 							</div>
 						</div>
@@ -36,54 +91,54 @@
 							<div id="forecast" class="col-lg-6 bg-transparent h-2x p-2">
 								<div class="weather-card rounded border-white p-2">
 									<header class="weather-card-header mb-2"><i class="bi bi-calendar-date"></i>&nbsp; Forecast</header>
-									<% presentWeather.forecastedParameters.forEach((param, index) => { %>
-										<section class="weather-forecast-containter w-100 d-flex justify-content-center">
-										<% if (index === presentWeather.forecastedParameters.length - 1) { %>
+									<% presentWeather.dailyForecastedParameters.forEach((day, index) => { %>
+									<section class="weather-forecast-containter w-100 d-flex justify-content-center">
+										<% if (index === presentWeather.dailyForecastedParameters.length - 1) { %>
 											<div class="weather-forecast-card row">
 										<% } else { %>
 											<div class="weather-forecast-card row weather-forecast-card-border">
 										<% } %>
 											<div class="m-0 col-lg-2">
-												<%= param.day %>
+												<%= day.day %>
 											</div>
 											<div class="m-0 col-lg-1">
-												<% if (param.weatherCode === "Sunny") { %>
-													<i class="bi bi-brightness-high-fill"></i>
-												<% } else if (param.weatherCode === "Partly Cloudy") { %>
+												<% if (day.weatherCode === "Sunny") { %>
+												<i class="bi bi-brightness-high-fill"></i>
+													<% } else if (day.weatherCode === "Partly Cloudy") { %>
 													<i class="bi bi-cloud-sun-fill"></i>
-												<% } else if (param.weatherCode === "Mostly Cloudy") { %>
+												<% } else if (day.weatherCode === "Mostly Cloudy") { %>
 													<i class="bi bi-cloud-fill"></i>
-												<% } else if (param.weatherCode === "Overcast") { %>
+												<% } else if (day.weatherCode === "Overcast") { %>
 													<i class="bi bi-clouds-fill"></i>
-												<% } else if (param.weatherCode === "Fog") { %>
+												<% } else if (day.weatherCode === "Fog") { %>
 													<i class="bi bi-cloud-haze2-fill"></i>
-												<% } else if (param.weatherCode === "Rime") { %>
+												<% } else if (day.weatherCode === "Rime") { %>
 													<i class="bi bi-snow"></i>
-												<% } else if (param.weatherCode === "Drizzle") { %>
+												<% } else if (day.weatherCode === "Drizzle") { %>
 													<i class="bi bi-cloud-drizzle-fill"></i>
-												<% } else if (param.weatherCode === "Rain") { %>
+												<% } else if (day.weatherCode === "Rain") { %>
 													<i class="bi bi-cloud-rain-heavy-fill"></i>
-												<% } else if (param.weatherCode === "Snow") { %>
+												<% } else if (day.weatherCode === "Snow") { %>
 													<i class="bi bi-snow"></i>
-												<% } else if (param.weatherCode === "Light Snow") { %>
+												<% } else if (day.weatherCode === "Light Snow") { %>
 													<i class="bi bi-snow3"></i>
-												<% } else if (param.weatherCode === "Moderate Snow") { %>
+												<% } else if (day.weatherCode === "Moderate Snow") { %>
 													<i class="bi bi-snow2"></i>
-												<% } else if (param.weatherCode === "Heavy Snow") { %>
+												<% } else if (day.weatherCode === "Heavy Snow") { %>
 													<i class="bi bi-snow2"></i>
-												<% } else if (param.weatherCode === "Thunderstorm") { %>
+												<% } else if (day.weatherCode === "Thunderstorm") { %>
 													<i class="bi bi-cloud-lightning-rain-fill"></i>
 												<% } %>
 											</div>
 											<div class="m-0 col-lg-9">
 												<div class="row d-flex justify-content-center">
-													<div class="col-lg-2 text-right"><%= param.temperature.min.value %></div>
+													<div class="col-lg-2 text-right"><%= day.temperature.min.value %></div>
 													<div class="col-lg-8 forecast-temperature-range-container p-0 mt-2 ml-1 mr-1">
 														<span class="range mt-0 p-0" style="
-															margin-left: <%= param.temperature.average.percentage %>%;
+															margin-left: <%= day.temperature.average.percentage %>%;
 														">&nbsp;</span>
 													</div>
-													<div class="col-lg-2"><%= param.temperature.max.value %></div>
+													<div class="col-lg-2"><%= day.temperature.max.value %></div>
 												</div>
 											</div>
 										</div>
@@ -155,9 +210,9 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="row">
-							<div id="precipitation-map" class="col-lg-12 bg-transparent h-2x p-2">
+							<div id="location" class="col-lg-12 bg-transparent h-2x p-2">
 								<div class="weather-card rounded border-white p-2">
-									<header class="weather-card-header"><i class="bi bi-droplet"></i>&nbsp; Precipitation</header>
+									<header class="weather-card-header"><i class="bi bi-geo-fill"></i>&nbsp; Location</header>
 									<section id="map-container" class="d-flex align-items-center justify-content-center p-2">
 										<section id="map" class="w-100 h-100 rounded"></section>
 									</section>
@@ -221,5 +276,7 @@
 		L.marker([<%= presentWeather.city.lat %>, <%= presentWeather.city.lng %>]).addTo(map)
 			.bindPopup('<%= presentWeather.city.name %>, <%= presentWeather.country %>')
 			.openPopup();
+
+		
 	</script>
 </body>

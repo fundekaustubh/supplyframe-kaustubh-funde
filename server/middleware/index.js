@@ -1,31 +1,12 @@
 const insertLocation = (req, res, next) => {
 	const { query } = req;
 	console.log("middleware hit!");
-	if (query.lat === undefined && query.lng === undefined) {
-		try {
-			if (navigator !== undefined && navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(async function (position) {
-					const latitude = position.coords.latitude;
-					const longitude = position.coords.longitude;
-					req.query.lat = latitude;
-					req.query.lng = longitude;
-					next();
-				});
-			} else {
-				req.query.lat = 40.6943;
-				req.query.lng = -73.9249;
-				next();
-			}
-		}
-		catch (err) {
-			req.query.lat = 40.6943;
-			req.query.lng = -73.9249;
-			next();
-		}
+	if (query.lat === undefined || query.lng === undefined) {
+		req.query.lat = 40.6943;
+		req.query.lng = -73.9249;
+		return res.redirect(`http://localhost:3000?lat=${req.query.lat}&lng=${req.query.lng}`);
 	}
-	else {
-		next();
-	}
+	next();
 }
 
 module.exports = { insertLocation };
