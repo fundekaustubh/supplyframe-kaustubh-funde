@@ -5,25 +5,207 @@
 		<source src="<%= presentWeather.backgroundVideo %>" type="video/mp4">
 	</video>
 	<%- include('../partials/navbar') %>
-	<main class="container mt-5">
+	<main class="container">
 		<%- include('../partials/flash') %>
-		<div class="fs-4 text-center">
+		<div class="h4 m-0 text-center">
 			<%= presentWeather.city.name %>
 		</div>
-		<div class="fs-1 text-center">
-			<%= presentWeather.measurableParameters.temperature.value %> <%= presentWeather.measurableParameters.temperature.unit %>
+		<div class="h1 m-0 text-center">
+			<%= presentWeather.currentParameters.temperature.value %> <%= presentWeather.currentParameters.temperature.unit %>
 		</div>
-		<div class="fs-5 text-center">
+		<div class="h5 m-0 text-center mb-1">
 			<%= presentWeather.weatherCode %>
 		</div>
-		<div class="d-flex p-2 align-items-center justify-content-center">
-			<% for( let key in presentWeather.measurableParameters ) { %>
-				<%- include('card', { value: presentWeather.measurableParameters[key].value, unit:
-					presentWeather.measurableParameters[key].unit }) %>
-			<% } %>
+		<div class="h6 mt-0 text-center mb-3 font-weight-bold">
+			H: <%= presentWeather.forecastedParameters[0].temperature.max.value %>
+				&nbsp;
+			L: <%= presentWeather.forecastedParameters[0].temperature.min.value %>
 		</div>
+		<section class="d-flex p-2 align-items-center justify-content-center">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="row">
+							<div id="conditions" class="col-lg-12 bg-transparent h-1x p-2">
+								<div class="weather-card rounded border-white p-2">
+									<header class="weather-card-header">Here's the header</header>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div id="forecast" class="col-lg-6 bg-transparent h-2x p-2">
+								<div class="weather-card rounded border-white p-2">
+									<header class="weather-card-header mb-2"><i class="bi bi-calendar-date"></i>&nbsp; Forecast</header>
+									<% presentWeather.forecastedParameters.forEach((param, index) => { %>
+										<section class="weather-forecast-containter w-100 d-flex justify-content-center">
+										<% if (index === presentWeather.forecastedParameters.length - 1) { %>
+											<div class="weather-forecast-card row">
+										<% } else { %>
+											<div class="weather-forecast-card row weather-forecast-card-border">
+										<% } %>
+											<div class="m-0 col-lg-2">
+												<%= param.day %>
+											</div>
+											<div class="m-0 col-lg-1">
+												<% if (param.weatherCode === "Sunny") { %>
+													<i class="bi bi-brightness-high-fill"></i>
+												<% } else if (param.weatherCode === "Partly Cloudy") { %>
+													<i class="bi bi-cloud-sun-fill"></i>
+												<% } else if (param.weatherCode === "Mostly Cloudy") { %>
+													<i class="bi bi-cloud-fill"></i>
+												<% } else if (param.weatherCode === "Overcast") { %>
+													<i class="bi bi-clouds-fill"></i>
+												<% } else if (param.weatherCode === "Fog") { %>
+													<i class="bi bi-cloud-haze2-fill"></i>
+												<% } else if (param.weatherCode === "Rime") { %>
+													<i class="bi bi-snow"></i>
+												<% } else if (param.weatherCode === "Drizzle") { %>
+													<i class="bi bi-cloud-drizzle-fill"></i>
+												<% } else if (param.weatherCode === "Rain") { %>
+													<i class="bi bi-cloud-rain-heavy-fill"></i>
+												<% } else if (param.weatherCode === "Snow") { %>
+													<i class="bi bi-snow"></i>
+												<% } else if (param.weatherCode === "Light Snow") { %>
+													<i class="bi bi-snow3"></i>
+												<% } else if (param.weatherCode === "Moderate Snow") { %>
+													<i class="bi bi-snow2"></i>
+												<% } else if (param.weatherCode === "Heavy Snow") { %>
+													<i class="bi bi-snow2"></i>
+												<% } else if (param.weatherCode === "Thunderstorm") { %>
+													<i class="bi bi-cloud-lightning-rain-fill"></i>
+												<% } %>
+											</div>
+											<div class="m-0 col-lg-9">
+												<div class="row d-flex justify-content-center">
+													<div class="col-lg-2 text-right"><%= param.temperature.min.value %></div>
+													<div class="col-lg-8 forecast-temperature-range-container p-0 mt-2 ml-1 mr-1">
+														<span class="range mt-0 p-0" style="
+															margin-left: <%= param.temperature.average.percentage %>%;
+														">&nbsp;</span>
+													</div>
+													<div class="col-lg-2"><%= param.temperature.max.value %></div>
+												</div>
+											</div>
+										</div>
+										</section>
+									<% }) %>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="row">
+									<div id="pollution" class="col-lg-12 bg-transparent h-1x p-2">
+										<div class="weather-card rounded border-white p-2">
+											<header class="weather-card-header"><i class="bi bi-cloud"></i>&nbsp; Cloud Cover</header>
+											<p class="h2 mt-3">
+												<%= presentWeather.currentParameters.cloudCover.value %><%= presentWeather.currentParameters.cloudCover.unit %>
+											</p>
+											<p class="h5">
+												<% if (presentWeather.currentParameters.cloudCover.value <=20) { %>
+												<%= "Low" %>
+												<% } else if(presentWeather.currentParameters.cloudCover.value <=50) { %>
+												<%= "Moderate" %>
+												<% } else if(presentWeather.currentParameters.cloudCover.value <=70) { %>
+												<%= "High" %>
+												<% } else { %>
+												<%= "Extreme" %>
+												<% } %>
+											</p>
+											<div class="col-lg-12 mt-3 range-container p-0 d-flex align-items-top">
+												<span class="range mt-0 p-0" style="
+													margin-left: <%= presentWeather.currentParameters.cloudCover.value %>%;
+												">&nbsp;</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div id="uv-index" class="col-lg-6 bg-transparent h-1x p-2">
+										<div class="weather-card rounded border-white p-2">
+											<header class="weather-card-header"><i class="bi bi-brightness-high-fill"></i>&nbsp; UV Index</header>
+											<p class="h2 mt-3"><%= presentWeather.currentParameters.uvIndex.value %></p>
+											<p class="h5">
+												<% if (presentWeather.currentParameters.uvIndex.value <= 2) { %>
+													<%= "Low" %>
+												<% } else if(presentWeather.currentParameters.uvIndex.value <= 5) { %>
+													<%= "Moderate" %>
+												<% } else if(presentWeather.currentParameters.uvIndex.value <= 7) { %>
+													<%= "High" %>
+												<% } else if(presentWeather.currentParameters.uvIndex.value <= 10) { %>
+													<%= "Very High" %>
+												<% } else { %>
+													<%= "Extreme" %>
+												<% } %>
+											</p>
+											<div class="col-lg-12 mt-3 range-container p-0 d-flex align-items-top">
+												<span class="range mt-0 p-0" style="
+													margin-left: <%= presentWeather.currentParameters.uvIndex.value * 10 %>%;
+												">&nbsp;</span>
+											</div>
+										</div>
+									</div>
+									<div id="sunset" class="col-lg-6 bg-transparent h-1x p-2">
+										<div class="weather-card rounded border-white p-2">
+											<header class="weather-card-header"><i class="bi bi-sunset"></i>&nbsp; Sunset</header>
+											<p class="h2 mt-3"><%= presentWeather.sunset.hours %>:<%= presentWeather.sunset.minutes %></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="row">
+							<div id="precipitation-map" class="col-lg-12 bg-transparent h-2x p-2">
+								<div class="weather-card rounded border-white p-2">
+									<header class="weather-card-header"><i class="bi bi-droplet"></i>&nbsp; Precipitation</header>
+									<section id="map-container" class="d-flex align-items-center justify-content-center p-2">
+										<section id="map" class="w-100 h-100 rounded"></section>
+									</section>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div id="wind" class="col-lg-6 bg-transparent h-1x p-2">
+								<div class="weather-card rounded border-white p-2">
+									<header class="weather-card-header"><i class="bi bi-wind"></i>&nbsp; Wind</header>
+									<div class="compass-container d-flex align-items-center justify-content-center">
+										<section class="compass" id="compass">
+											<div class="needle" id="needle" style="
+												transform: rotate(<%= presentWeather.currentParameters.windDirection.value %>deg);
+												">
+												<div class="arrow" style></div>
+											</div>
+											<div class="mark n">N</div>
+											<div class="mark s">S</div>
+											<div class="mark e">E</div>
+											<div class="mark w">W</div>
+											<div class="wind-speed" id="wind-speed"><%= presentWeather.currentParameters.windSpeed.value %> <%= presentWeather.currentParameters.windSpeed.unit %></div>
+										</section>
+									</div>
+								</div>
+							</div>
+							<div id="precipitation" class="col-lg-6 bg-transparent h-1x p-2">
+								<div class="weather-card rounded border-white p-2">
+									<header class="weather-card-header"><i class="bi bi-umbrella-fill"></i>&nbsp; Precipitation</header>
+									<div class="h4 mt-3">
+										<%= presentWeather.currentParameters.precipitationSum.today.value %>
+											<%= presentWeather.currentParameters.precipitationSum.today.unit %>
+									</div>
+									<p class="h6">
+										today, so far.
+									</p>
+									<article class="description mt-3"><%= presentWeather.currentParameters.precipitationSum.tomorrow.value %>
+										<%= presentWeather.currentParameters.precipitationSum.tomorrow.unit %>
+										expected tomorrow.
+									</article>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</main>
-	<%- include('../partials/footer') %>
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -31,4 +213,13 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
+	<script>
+		const map = L.map('map').setView([<%= presentWeather.city.lat %>, <%= presentWeather.city.lng %>], 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: ''
+		}).addTo(map);
+		L.marker([<%= presentWeather.city.lat %>, <%= presentWeather.city.lng %>]).addTo(map)
+			.bindPopup('<%= presentWeather.city.name %>, <%= presentWeather.country %>')
+			.openPopup();
+	</script>
 </body>

@@ -1,3 +1,7 @@
+* {
+	font-family: 'Poppins', sans-serif;
+}
+
 video#background-video {
 	position: fixed;
 	top: 0;
@@ -13,4 +17,149 @@ main {
 	position: relative;
 	z-index: 1;
 	padding: 20px;
+}
+
+.h-1x {
+	height: 200px;
+}
+
+.h-2x {
+	height: 400px;
+}
+
+.weather-card {
+	color: white;
+	background-color: #0000006e;
+	height: 100%;
+}
+
+.weather-card-header {
+	color: #d7d7d7;
+	text-transform: uppercase;
+}
+
+.range-container {
+	background: linear-gradient(to right, rgba(0, 255, 0, 1) 0%,
+			/* Green */
+			rgba(255, 255, 0, 1) 20%,
+			/* Yellow */
+			rgba(255, 165, 0, 1) 40%,
+			/* Orange */
+			rgba(255, 0, 0, 1) 60%,
+			/* Red */
+			rgba(128, 0, 128, 1) 80%
+			/* Purple */
+		);
+	height: 0.4rem;
+	overflow: hidden;
+}
+
+.range {
+	background-color: white;
+	border: 1px solid black;
+	height: 100%;
+}
+
+.forecast-temperature-range-container {
+	background-color: #00aeae;
+	height: 0.4rem;
+	overflow: hidden;
+	border-radius: 2px;
+}
+
+.range {
+	background-color: white;
+	border: 1px solid black;
+	height: 100%;
+}
+
+.compass {
+	position: relative;
+	width: 8rem;
+	height: 8rem;
+	border: 2px dashed rgb(255, 254, 218);
+	border-radius: 50%;
+	background: transparent;
+}
+
+.needle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 2px;
+	height: 2.5rem;
+	background-color: white;
+	transform-origin: top;
+	transform: translate(-50%, -100%) rotate(0deg);
+	transition: transform 0.5s ease-in-out;
+}
+
+.arrow {
+	position: absolute;
+	top: 85%;
+	left: -223.5%;
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 12px solid white;
+	transform: rotate(180deg);
+}
+
+.mark {
+	position: absolute;
+	background-color: transparent;
+	color:rgb(255, 254, 218);
+	font-size: 0.75rem;
+}
+
+.n {
+	top: 0.2rem;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.s {
+	bottom: 0.2rem;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.e {
+	top: 50%;
+	right: 0.2rem;
+	transform: translateY(-50%);
+}
+
+.w {
+	top: 50%;
+	left: 0.2rem;
+	transform: translateY(-50%);
+}
+
+.wind-speed {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 0.75rem;
+}
+
+.description {
+	font-size: 0.9rem;
+}
+
+.weather-forecast-card-border {
+	border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.weather-forecast-card {
+	width: 95%;
+	margin-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
+
+#map-container {
+	width: 100%;
+	height: 95%;
 }

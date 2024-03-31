@@ -5,7 +5,7 @@ const getHomePage = async (req, res) => {
 	const { lat = undefined, lng = undefined } = req.query;
 	console.log("lat and lng", lat, lng);
 	if (lat === undefined && lng === undefined) {
-		if (navigator.geolocation) {
+		if (navigator !== undefined && navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(async function (position) {
 				const latitude = position.coords.latitude;
 				const longitude = position.coords.longitude;

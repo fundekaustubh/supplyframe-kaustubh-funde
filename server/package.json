@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.8",
+    "bootstrap-icons": "^1.11.3",
     "ejs-mate": "^4.0.0",
     "express": "^4.19.2",
     "node": "^21.7.1",
