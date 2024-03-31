@@ -5,9 +5,6 @@
 			const newOption = document.createElement('option');
 			newOption.setAttribute('value', `${city.city}, ${city.country}`);
 			newOption.setAttribute('textContent', `${city.city}, ${city.country}`);
-			// newOption.addEventListener('click', function () {
-			// 	console.log('hi');
-			// });
 			return newOption;
 		});
 		const citiesList = document.getElementById("cities-list");
@@ -17,15 +14,8 @@
 			console.log("dom content loaded");
 			$('#cities-search').autocomplete();
 		}, false);
-
-		const citiesForm = document.getElementById("cities-form");
-		// citiesForm.addEventListener("submit", async (e) => {
-		// 	e.preventDefault();
-		// 	const selectedCity = document.getElementById("selected-city").value;
-		// 	const response = await fetch(`/api/weather/${selectedCity}`);
-		// });
 	}
 	catch (err) {
 		console.error(err);
 	}
-})()
+})();

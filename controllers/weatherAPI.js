@@ -193,7 +193,7 @@ const getPresentWeatherForCity = async (req, res) => {
 		const requiredCity = cities.filter(city => city.city === selectedCity)[0];
 		if (requiredCity === undefined) throw new Error("City not found!");
 		const { lat, lng } = requiredCity;
-		return res.redirect(`http://localhost:3000?lat=${lat}&lng=${lng}`);
+		return res.redirect(`${process.env.HOST_URL}?lat=${lat}&lng=${lng}`);
 	}
 	catch (error) {
 		return res.render("weather/error", { error: error.message });

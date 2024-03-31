@@ -1,3 +1,4 @@
+if(process.env.NODE_ENV !== "production") require('dotenv').config();
 const express = require("express");
 const app = express();
 const ejsMate = require("ejs-mate");
@@ -20,6 +21,6 @@ app.use("*", (req, res) => {
 	res.redirect("/");
 });
 
-app.listen(3000, () => {
-	console.log("Serving on port 3000...")
+app.listen(process.env.PORT, () => {
+	console.log(`Serving on port ${process.env.HOST_URL}...`)
 });

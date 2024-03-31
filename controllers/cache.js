@@ -5,7 +5,7 @@ const cachedCities = {};
 const getPresentWeatherForCoordinatesInCache = async (req, res, next) => {
 	const { query } = req;
 	const { lat = undefined, lng = undefined } = query;
-	if (lat === undefined || lng === undefined) return res.redirect("http://localhost:3000");
+	if (lat === undefined || lng === undefined) return res.redirect(process.env.HOST_URL);
 	try {
 		const selectedCity = cities.filter(city => city.lat === lat && city.lng === lng)[0];
 		if (selectedCity === undefined) throw new Error("Invalid coordinates!");

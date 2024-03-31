@@ -3,7 +3,7 @@ const insertLocation = (req, res, next) => {
 	if (query.lat === undefined || query.lng === undefined) {
 		req.query.lat = 40.6943;
 		req.query.lng = -73.9249;
-		return res.redirect(`http://localhost:3000?lat=${req.query.lat}&lng=${req.query.lng}`);
+		return res.redirect(`${process.env.HOST_URL}?lat=${req.query.lat}&lng=${req.query.lng}`);
 	}
 	next();
 }
